@@ -21,11 +21,43 @@ jobs:
         with:
           dotnet-version: "8.0.x"
 
-      - name: Restore
-        run: dotnet restore Hangfire.Tags.sln
+      - name: Restore public projects
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+            "tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj"
+          )
 
-      - name: Build
-        run: dotnet build Hangfire.Tags.sln -c Release --no-restore /p:ContinuousIntegrationBuild=true
+          for project in "${projects[@]}"; do
+            dotnet restore "$project"
+          done
+
+      - name: Build public projects
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+            "tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj"
+          )
+
+          for project in "${projects[@]}"; do
+            dotnet build "$project" -c Release --no-restore /p:ContinuousIntegrationBuild=true
+          done
 
       - name: Test
         run: |
