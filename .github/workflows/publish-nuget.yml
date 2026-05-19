@@ -11,6 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write # enable GitHub OIDC token issuance for this job
+    env:
+      HF_FEED_URL: ${{ secrets.HF_FEED_URL }}
+      HF_USER: ${{ secrets.HF_USER }}
+      HF_PASS: ${{ secrets.HF_PASS }}
 
     steps:
       - name: Checkout
@@ -82,11 +86,11 @@ jobs:
           done
 
       - name: Configure Hangfire Pro feed
-        if: ${{ secrets.HF_FEED_URL != '' && secrets.HF_USER != '' && secrets.HF_PASS != '' }}
-        run: dotnet nuget add source "${{ secrets.HF_FEED_URL }}" --name ExtHf --username "${{ secrets.HF_USER }}" --password "${{ secrets.HF_PASS }}" --store-password-in-clear-text
+        if: ${{ env.HF_FEED_URL != '' && env.HF_USER != '' && env.HF_PASS != '' }}
+        run: dotnet nuget add source "$HF_FEED_URL" --name ExtHf --username "$HF_USER" --password "$HF_PASS" --store-password-in-clear-text
 
       - name: Pack Pro.Redis package
-        if: ${{ secrets.HF_FEED_URL != '' && secrets.HF_USER != '' && secrets.HF_PASS != '' }}
+        if: ${{ env.HF_FEED_URL != '' && env.HF_USER != '' && env.HF_PASS != '' }}
         run: dotnet pack src/FaceIT.Hangfire.Tags.Pro.Redis/FaceIT.Hangfire.Tags.Pro.Redis.csproj -c Release -o artifacts /p:ContinuousIntegrationBuild=true
 
       - name: NuGet Sign-in (OIDC to Temp API Key)
