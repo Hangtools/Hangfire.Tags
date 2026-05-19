@@ -1,0 +1,66 @@
+name: Publish NuGet
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # enable GitHub OIDC token issuance for this job
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore Hangfire.Tags.sln
+
+      - name: Build
+        run: dotnet build Hangfire.Tags.sln -c Release --no-restore /p:ContinuousIntegrationBuild=true
+
+      - name: Test
+        run: |
+          dotnet test tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj -c Release --no-build
+          dotnet test tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj -c Release --no-build
+          dotnet test tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack Hangfire.Tags.sln -c Release -o artifacts --no-build /p:ContinuousIntegrationBuild=true
+
+      - name: NuGet Sign-in (OIDC to Temp API Key)
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: hangtools
+
+      - name: Publish packages
+        run: |
+          shopt -s nullglob
+          for pkg in artifacts/*.nupkg; do
+            if [[ "$pkg" == *.snupkg ]]; then
+              continue
+            fi
+            dotnet nuget push "$pkg" \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
+              --source "https://api.nuget.org/v3/index.json" \
+              --skip-duplicate
+          done
+
+      - name: Publish symbol packages
+        run: |
+          shopt -s nullglob
+          for spkg in artifacts/*.snupkg; do
+            dotnet nuget push "$spkg" \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
+              --source "https://api.nuget.org/v3/index.json" \
+              --skip-duplicate
+          done
