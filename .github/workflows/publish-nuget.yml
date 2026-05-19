@@ -51,6 +51,7 @@ jobs:
             fi
             dotnet nuget push "$pkg" \
               --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --source "https://api.nuget.org/v3/index.json" \
               --skip-duplicate
           done
@@ -60,6 +61,7 @@ jobs:
           shopt -s nullglob
           for spkg in artifacts/*.snupkg; do
             dotnet nuget push "$spkg" \
+              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --source "https://api.nuget.org/v3/index.json" \
               --skip-duplicate
