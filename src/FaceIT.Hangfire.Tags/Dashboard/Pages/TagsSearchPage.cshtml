@@ -24,12 +24,6 @@
         allTags = monitor.SearchWeightedTags().ToList();
     }
 }
-<script>
-        function go(tag) {
-            var baseUrl = "@Url.To("/tags/search/")";
-            window.location = baseUrl + tag;
-        }
-</script>
 <div class="row">
     <div class="col-md-3">
         @Html.JobsSidebar()
@@ -71,7 +65,7 @@
                                 <input class="form-control" id="selectedTag" list="hangfireTagsList" autocomplete="off" placeholder="Select a tag" />
                             </div>
                             <div class="col-md-2">
-                                <button id="btn_go" class="btn" onclick="go(document.getElementById('selectedTag').value)">Go</button>
+                                <button id="btn_tags_go" class="btn" data-base-url="@Url.To("/tags/search/")">Go</button>
                             </div>
                         </div>
                     }

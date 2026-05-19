@@ -57,15 +57,6 @@
 
 }
 
-@if (tagsListStyle == TagsListStyle.Dropdown && tags.Length == 1 && relatedTags.Any())
-{
-    <script>
-        function go(tag) {
-            var baseUrl = "@Url.To("/tags/search/" + tags.First() + ",")";
-            window.location = baseUrl + tag;
-        }
-    </script>
-}
 <div class="row">
     <div class="col-md-3">
         @Html.JobsSidebar()
@@ -97,7 +88,7 @@
                     <input class="form-control" id="selectedTag" list="hangfireTagsList" autocomplete="off" placeholder="Select a related tag" />
                 </div>
                 <div class="col-md-2">
-                    <button id="btn_go" class="btn" onclick="go(document.getElementById('selectedTag').value)">Go</button>
+                    <button id="btn_tags_go" class="btn" data-base-url="@Url.To("/tags/search/" + tags.First() + ",")">Go</button>
                 </div>
             </div>
         }

@@ -110,22 +110,11 @@ WriteLiteral("\r\n");
             
             #line default
             #line hidden
-WriteLiteral("<script>\r\n        function go(tag) {\r\n            var baseUrl = \"");
+WriteLiteral("<div class=\"row\">\r\n    <div class=\"col-md-3\">\r\n        ");
 
 
             
             #line 29 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
-                      Write(Url.To("/tags/search/"));
-
-            
-            #line default
-            #line hidden
-WriteLiteral("\";\r\n            window.location = baseUrl + tag;\r\n        }\r\n</script>\r\n<div clas" +
-"s=\"row\">\r\n    <div class=\"col-md-3\">\r\n        ");
-
-
-            
-            #line 35 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
    Write(Html.JobsSidebar());
 
             
@@ -136,7 +125,7 @@ WriteLiteral("\r\n    </div>\r\n    <div class=\"col-md-9\">\r\n\r\n        <h1 
 
 
             
-            #line 41 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 35 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
           
 
             if (!allTags.Any())
@@ -150,7 +139,7 @@ WriteLiteral("                <div class=\"tags\">\r\n                    There 
 
 
             
-            #line 48 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 42 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
             }
             else
             {
@@ -162,7 +151,7 @@ WriteLiteral("                <div class=\"tags row\">\r\n\r\n");
 
 
             
-            #line 53 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 47 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                      if (tagsListStyle == TagsListStyle.LinkButton)
                     {
                         foreach (var t in allTags)
@@ -176,7 +165,7 @@ WriteLiteral("                            <a href=\"");
 
 
             
-            #line 58 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 52 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                 Write(Url.To("/tags/search/" + t.Tag));
 
             
@@ -186,7 +175,7 @@ WriteLiteral("\" rel=\"");
 
 
             
-            #line 58 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 52 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                                                        Write(intValue);
 
             
@@ -196,7 +185,7 @@ WriteLiteral("\">");
 
 
             
-            #line 58 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 52 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                                                                   Write(t.Tag);
 
             
@@ -206,7 +195,7 @@ WriteLiteral("</a>\r\n");
 
 
             
-            #line 59 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 53 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                         }
                     }
                     else if (tagsListStyle == TagsListStyle.Dropdown)
@@ -220,7 +209,7 @@ WriteLiteral("                        <div class=\"col-md-12\">\r\n             
 
 
             
-            #line 65 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 59 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                  foreach (var t in allTags)
                                 {
 
@@ -231,7 +220,7 @@ WriteLiteral("                                    <option value=\"");
 
 
             
-            #line 67 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 61 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                               Write(t.Tag);
 
             
@@ -241,7 +230,7 @@ WriteLiteral("\"></option>\r\n");
 
 
             
-            #line 68 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 62 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                                 }
 
             
@@ -252,14 +241,22 @@ WriteLiteral(@"                            </datalist>
                                 <input class=""form-control"" id=""selectedTag"" list=""hangfireTagsList"" autocomplete=""off"" placeholder=""Select a tag"" />
                             </div>
                             <div class=""col-md-2"">
-                                <button id=""btn_go"" class=""btn"" onclick=""go(document.getElementById('selectedTag').value)"">Go</button>
-                            </div>
-                        </div>
-");
+                                <button id=""btn_tags_go"" class=""btn"" data-base-url=""");
 
 
             
-            #line 77 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 68 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+                                                                               Write(Url.To("/tags/search/"));
+
+            
+            #line default
+            #line hidden
+WriteLiteral("\">Go</button>\r\n                            </div>\r\n                        </div>" +
+"\r\n");
+
+
+            
+            #line 71 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                     }
                     else
                     {
@@ -272,7 +269,7 @@ WriteLiteral("                        <b>Not supported Tags List Style. Check Ta
 
 
             
-            #line 81 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 75 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
                     }
 
             
@@ -282,7 +279,7 @@ WriteLiteral("                </div>\r\n");
 
 
             
-            #line 83 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
+            #line 77 "..\..\Dashboard\Pages\TagsSearchPage.cshtml"
             }
 
         
