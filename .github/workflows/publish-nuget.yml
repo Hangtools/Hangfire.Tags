@@ -33,8 +33,29 @@ jobs:
           dotnet test tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj -c Release --no-build
           dotnet test tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj -c Release --no-build
 
-      - name: Pack
-        run: dotnet pack Hangfire.Tags.sln -c Release -o artifacts --no-build /p:ContinuousIntegrationBuild=true
+      - name: Pack public packages
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+          )
+
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" -c Release -o artifacts --no-build /p:ContinuousIntegrationBuild=true
+          done
+
+      - name: Configure Hangfire Pro feed
+        if: ${{ secrets.HF_FEED_URL != '' && secrets.HF_USER != '' && secrets.HF_PASS != '' }}
+        run: dotnet nuget add source "${{ secrets.HF_FEED_URL }}" --name ExtHf --username "${{ secrets.HF_USER }}" --password "${{ secrets.HF_PASS }}" --store-password-in-clear-text
+
+      - name: Pack Pro.Redis package
+        if: ${{ secrets.HF_FEED_URL != '' && secrets.HF_USER != '' && secrets.HF_PASS != '' }}
+        run: dotnet pack src/FaceIT.Hangfire.Tags.Pro.Redis/FaceIT.Hangfire.Tags.Pro.Redis.csproj -c Release -o artifacts /p:ContinuousIntegrationBuild=true
 
       - name: NuGet Sign-in (OIDC to Temp API Key)
         uses: NuGet/login@v1
@@ -51,7 +72,6 @@ jobs:
             fi
             dotnet nuget push "$pkg" \
               --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
-              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --source "https://api.nuget.org/v3/index.json" \
               --skip-duplicate
           done
@@ -61,7 +81,6 @@ jobs:
           shopt -s nullglob
           for spkg in artifacts/*.snupkg; do
             dotnet nuget push "$spkg" \
-              --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" \
               --source "https://api.nuget.org/v3/index.json" \
               --skip-duplicate
