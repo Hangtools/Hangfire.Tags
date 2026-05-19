@@ -25,7 +25,11 @@ $(function() {
     $(".tags a").tagcloud();
     $("#btn_tags_go").click(function () {
         var baseUrl = $(this).data("base-url");
-        var tag = $("#selectedTag").val();
-        window.location = baseUrl + tag;
+        var tag = ($("#selectedTag").val() || "").trim();
+        if (!tag) {
+            return;
+        }
+
+        window.location = baseUrl + encodeURIComponent(tag);
     });
 });

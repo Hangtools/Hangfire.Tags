@@ -11,7 +11,7 @@
     <Copyright />
     <PackageProjectUrl>https://github.com/Hangtools/Hangfire.Tags</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>https://raw.githubusercontent.com/Hangtools/Hangfire.Tags/master/Icon.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Hangtools/Hangfire.Tags/main/Icon.png</PackageIconUrl>
     <RepositoryUrl>https://github.com/Hangtools/Hangfire.Tags</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>hangfire tags sqlite</PackageTags>
