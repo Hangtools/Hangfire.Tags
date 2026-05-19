@@ -9,10 +9,10 @@
     <Version>1.9.1</Version>
     <Description>Add tags to Hangfire backgroundjobs</Description>
     <Copyright />
-    <PackageProjectUrl>https://github.com/face-it/Hangfire.Tags</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Hangtools/Hangfire.Tags</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageIconUrl>https://raw.githubusercontent.com/face-it/Hangfire.Tags/master/Icon.png</PackageIconUrl>
-    <RepositoryUrl>https://github.com/face-it/Hangfire.Tags</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/Hangtools/Hangfire.Tags/master/Icon.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Hangtools/Hangfire.Tags</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>hangfire tags</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
