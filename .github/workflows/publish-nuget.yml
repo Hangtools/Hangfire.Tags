@@ -1,0 +1,62 @@
+name: Publish NuGet
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        run: dotnet restore Hangfire.Tags.sln
+
+      - name: Build
+        run: dotnet build Hangfire.Tags.sln -c Release --no-restore /p:ContinuousIntegrationBuild=true
+
+      - name: Test
+        run: |
+          dotnet test tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj -c Release --no-build
+          dotnet test tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj -c Release --no-build
+          dotnet test tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj -c Release --no-build
+
+      - name: Pack
+        run: dotnet pack Hangfire.Tags.sln -c Release -o artifacts --no-build /p:ContinuousIntegrationBuild=true
+
+      - name: Publish packages
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          shopt -s nullglob
+          for pkg in artifacts/*.nupkg; do
+            if [[ "$pkg" == *.snupkg ]]; then
+              continue
+            fi
+            dotnet nuget push "$pkg" \
+              --api-key "$NUGET_API_KEY" \
+              --source "https://api.nuget.org/v3/index.json" \
+              --skip-duplicate
+          done
+
+      - name: Publish symbol packages
+        env:
+          NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+        run: |
+          shopt -s nullglob
+          for spkg in artifacts/*.snupkg; do
+            dotnet nuget push "$spkg" \
+              --api-key "$NUGET_API_KEY" \
+              --source "https://api.nuget.org/v3/index.json" \
+              --skip-duplicate
+          done
