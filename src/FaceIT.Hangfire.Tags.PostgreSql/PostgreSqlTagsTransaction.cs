@@ -15,7 +15,7 @@ namespace Hangfire.Tags.PostgreSql
 
         private readonly IWriteOnlyTransaction _transaction;
 
-        private static MethodInfo _queueCommand;
+        private MethodInfo _queueCommand;
 
         public PostgreSqlTagsTransaction(PostgreSqlStorageOptions options, IWriteOnlyTransaction transaction)
         {

@@ -10,9 +10,9 @@ namespace Hangfire.Tags.PostgreSql
         private readonly JobStorage _postgreSqlStorage;
         private readonly IMonitoringApi _monitoringApi;
 
-        private static bool _useStorage;
-        private static Type _type;
-        private static MethodInfo _useConnection;
+        private bool _useStorage;
+        private Type _type;
+        private MethodInfo _useConnection;
 
         public PostgreSqlTagsMonitoringApi(JobStorage postgreSqlStorage)
         {

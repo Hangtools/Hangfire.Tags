@@ -9,8 +9,8 @@ namespace Hangfire.Tags.SqlServer
     {
         private readonly IMonitoringApi _monitoringApi;
 
-        private static Type _type;
-        private static MethodInfo _useConnection;
+        private Type _type;
+        private MethodInfo _useConnection;
 
         public SqlTagsMonitoringApi(IMonitoringApi monitoringApi)
         {

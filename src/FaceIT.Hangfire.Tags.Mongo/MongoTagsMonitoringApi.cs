@@ -7,8 +7,8 @@ namespace Hangfire.Tags.Mongo
 {
     internal class MongoTagsMonitoringApi
     {
-        private static Type _type;
-        private static FieldInfo _dbContextField;
+        private Type _type;
+        private FieldInfo _dbContextField;
 
         public MongoTagsMonitoringApi(IMonitoringApi monitoringApi)
         {
