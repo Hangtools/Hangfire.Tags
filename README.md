@@ -1,5 +1,6 @@
 # Hangfire.Tags
 
+[![CI](https://github.com/Hangtools/Hangfire.Tags/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Hangtools/Hangfire.Tags/actions/workflows/ci.yml)
 [![NuGet Publish](https://github.com/Hangtools/Hangfire.Tags/actions/workflows/publish-nuget.yml/badge.svg)](https://github.com/Hangtools/Hangfire.Tags/actions/workflows/publish-nuget.yml)
 [![NuGet](https://img.shields.io/nuget/v/Hangtools.Hangfire.Tags.svg)](https://www.nuget.org/packages/Hangtools.Hangfire.Tags/)
 ![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)
@@ -139,6 +140,16 @@ config.UseTagsWithSql(options);
 
 The result will look like this:
 ![tagsearch](https://raw.githubusercontent.com/Hangtools/Hangfire.Tags/main/Tagsearch.png)
+
+## Credits
+
+This package is a community-maintained fork distributed as `Hangtools.Hangfire.Tags`.
+
+- Original project by Erwin Bovendeur (2Face-IT B.V.) — [face-it/Hangfire.Tags](https://github.com/face-it/Hangfire.Tags)
+- MySql storage support by Adam Taylor — [granicus422](https://github.com/granicus422)
+- PostgreSql storage and numerous improvements by Yong Liu — [yongliu-mdsol](https://github.com/yongliu-mdsol)
+
+The upstream project is MIT-licensed; see [LICENSE.md](LICENSE.md) for the full text.
 
 ## License
 

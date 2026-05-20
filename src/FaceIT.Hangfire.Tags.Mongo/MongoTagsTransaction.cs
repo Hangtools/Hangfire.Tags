@@ -16,8 +16,8 @@ namespace Hangfire.Tags.Mongo
 
         private readonly List<WriteModel<BsonDocument>> _writeModels;
 
-        private static Type _type;
-        private static FieldInfo _writeModelsFieldInfo;
+        private Type _type;
+        private FieldInfo _writeModelsFieldInfo;
         
         public MongoTagsTransaction(MongoStorageOptions options, IWriteOnlyTransaction transaction)
         {

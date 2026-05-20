@@ -25,10 +25,10 @@ namespace Hangfire.Tags.SqlServer
         private readonly SqlServerStorageOptions _options;
         private readonly IWriteOnlyTransaction _transaction;
 
-        private static Type _type;
-        private static MethodInfo _acquireSetLock;
+        private Type _type;
+        private MethodInfo _acquireSetLock;
 
-        private static MethodInfo _addCommand;
+        private MethodInfo _addCommand;
 
         public SqlTagsTransaction(SqlServerStorageOptions options, IWriteOnlyTransaction transaction)
         {

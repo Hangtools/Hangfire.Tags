@@ -11,8 +11,8 @@ namespace Hangfire.Tags.SQLite
         private readonly SQLiteStorageOptions _options;
         private readonly IWriteOnlyTransaction _transaction;
 
-        private static Type _type;
-        private static MethodInfo _queueCommand;
+        private Type _type;
+        private MethodInfo _queueCommand;
 
         public SQLiteTagsTransaction(SQLiteStorageOptions options, IWriteOnlyTransaction transaction)
         {

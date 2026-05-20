@@ -14,7 +14,7 @@ namespace Hangfire.Tags.MySql
 
         private readonly IWriteOnlyTransaction _transaction;
 
-        private static MethodInfo _queueCommand;
+        private MethodInfo _queueCommand;
 
         public MySqlTagsTransaction(MySqlStorageOptions options, IWriteOnlyTransaction transaction)
         {

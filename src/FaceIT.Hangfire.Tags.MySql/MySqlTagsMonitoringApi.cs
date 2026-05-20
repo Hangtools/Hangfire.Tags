@@ -9,9 +9,9 @@ namespace Hangfire.Tags.MySql
     {
         private readonly IMonitoringApi _monitoringApi;
 
-        private static Type _type;
+        private Type _type;
 
-        private static MethodInfo _useConnection;
+        private MethodInfo _useConnection;
 
         public MySqlTagsMonitoringApi(IMonitoringApi monitoringApi)
         {
