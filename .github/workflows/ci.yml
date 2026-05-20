@@ -1,0 +1,82 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore public projects
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+            "tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj"
+          )
+
+          for project in "${projects[@]}"; do
+            dotnet restore "$project"
+          done
+
+      - name: Build public projects
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+            "tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj"
+            "tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj"
+          )
+
+          for project in "${projects[@]}"; do
+            dotnet build "$project" -c Release --no-restore
+          done
+
+      - name: Test
+        run: |
+          dotnet test tests/FaceIT.Hangfire.Tags.Tests/FaceIT.Hangfire.Tags.Tests.csproj -c Release --no-build --no-restore
+          dotnet test tests/FaceIT.Hangfire.Tags.PostgreSql.Tests/FaceIT.Hangfire.Tags.PostgreSql.Tests.csproj -c Release --no-build --no-restore
+          dotnet test tests/FaceIT.Hangfire.Tags.MySql.Tests/FaceIT.Hangfire.Tags.MySql.Tests.csproj -c Release --no-build --no-restore
+
+      - name: Pack public packages
+        run: |
+          projects=(
+            "src/FaceIT.Hangfire.Tags/FaceIT.Hangfire.Tags.csproj"
+            "src/FaceIT.Hangfire.Tags.Mongo/FaceIT.Hangfire.Tags.Mongo.csproj"
+            "src/FaceIT.Hangfire.Tags.MySql/FaceIT.Hangfire.Tags.MySql.csproj"
+            "src/FaceIT.Hangfire.Tags.PostgreSql/FaceIT.Hangfire.Tags.PostgreSql.csproj"
+            "src/FaceIT.Hangfire.Tags.Redis.StackExchange/FaceIT.Hangfire.Tags.Redis.StackExchange.csproj"
+            "src/FaceIT.Hangfire.Tags.SQLite/FaceIT.Hangfire.Tags.SQLite.csproj"
+            "src/FaceIT.Hangfire.Tags.SqlServer/FaceIT.Hangfire.Tags.SqlServer.csproj"
+          )
+
+          for project in "${projects[@]}"; do
+            dotnet pack "$project" -c Release --no-build --no-restore -o artifacts
+          done
