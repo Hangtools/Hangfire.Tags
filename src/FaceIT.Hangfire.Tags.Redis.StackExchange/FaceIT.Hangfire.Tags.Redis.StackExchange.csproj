@@ -6,7 +6,6 @@
     <PackageId>Hangtools.Hangfire.Tags.Redis.StackExchange</PackageId>
     <Authors>Erwin Bovendeur</Authors>
     <Company>2Face-IT B.V.</Company>
-    <Version>1.9.3</Version>
     <Description>Support for Redis for Hangfire.Tags. This separate library is required in order to search for tags, and proper cleanup.</Description>
     <Copyright />
 		<AssemblyName>FaceIT.Hangfire.Tags.Redis.StackExchange</AssemblyName>

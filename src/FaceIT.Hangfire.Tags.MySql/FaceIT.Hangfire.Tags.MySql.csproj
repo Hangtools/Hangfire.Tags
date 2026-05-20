@@ -6,7 +6,6 @@
     <PackageId>Hangtools.Hangfire.Tags.MySql</PackageId>
     <Authors>Adam Taylor</Authors>
     <Company>No-Lyfe Media</Company>
-    <Version>1.9.1</Version>
     <Description>Support for MySql for Hangfire.Tags. This separate library is required in order to search for tags, and proper cleanup.</Description>
     <Copyright />
     <PackageProjectUrl>https://github.com/Hangtools/Hangfire.Tags</PackageProjectUrl>
