@@ -6,7 +6,6 @@
     <PackageId>Hangtools.Hangfire.Tags.PostgreSql</PackageId>
     <Authors>Yong Liu</Authors>
     <Company>Medidata Solutions Inc</Company>
-    <Version>1.9.8</Version>
     <Description>Support for PostgreSql for Hangfire.Tags. This separate library is required in order to search for tags, and proper cleanup.</Description>
     <Copyright />
     <PackageProjectUrl>https://github.com/Hangtools/Hangfire.Tags</PackageProjectUrl>

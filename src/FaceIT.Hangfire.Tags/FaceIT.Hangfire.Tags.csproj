@@ -6,7 +6,6 @@
     <PackageId>Hangtools.Hangfire.Tags</PackageId>
     <Authors>Erwin Bovendeur</Authors>
     <Company>faceit</Company>
-    <Version>1.9.1</Version>
     <Description>Add tags to Hangfire backgroundjobs</Description>
     <Copyright />
     <PackageProjectUrl>https://github.com/Hangtools/Hangfire.Tags</PackageProjectUrl>
@@ -16,8 +15,6 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>hangfire tags</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
-    <AssemblyVersion>1.8.2.0</AssemblyVersion>
-    <FileVersion>1.8.0.0</FileVersion>
     <RootNamespace>Hangfire.Tags</RootNamespace>
 
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
